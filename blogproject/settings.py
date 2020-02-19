@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig', # 注册blog应用
     'comments.apps.CommentsConfig', # 注册comments应用
+    'pure_pagination',  # 分页库                                                                                                                 
 ]
 
 MIDDLEWARE = [

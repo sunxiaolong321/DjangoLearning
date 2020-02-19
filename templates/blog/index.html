@@ -13,7 +13,8 @@
         <span class="post-date"><a href="#"><time class="entry-date"
                     datetime="{{ post.created_time }}">{{ post.created_time }}</time></a></span>
         <span class="post-author"><a href="#">{{ post.author }}</a></span>
-        <span class="comments-link"><a href="{{ post.get_absolute_url }}#comment-area">{{ post.comment_set.count }}</a></span>
+        <span class="comments-link"><a
+                href="{{ post.get_absolute_url }}#comment-area">{{ post.comment_set.count }}</a></span>
         <span class="views-count"><a href="{{ post.get_absolute_url }}">{{ post.views }} 阅读</a></span>
     </div>
     </header>
@@ -34,17 +35,9 @@
                     <a href="#">下一页</a>
                 </div>
                 -->
-<div class="pagination">
-    <ul>
-        <li><a href="">1</a></li>
-        <li><a href="">...</a></li>
-        <li><a href="">4</a></li>
-        <li><a href="">5</a></li>
-        <li class="current"><a href="">6</a></li>
-        <li><a href="">7</a></li>
-        <li><a href="">8</a></li>
-        <li><a href="">...</a></li>
-        <li><a href="">11</a></li>
-    </ul>
-</div>
+{% if is_paginated %}
+<!-- <div class="pagination-simple"> -->
+    {{ page_obj.render }}
+<!-- </div> -->
+{% endif %}
 {% endblock main %}
