@@ -1,12 +1,12 @@
 import re
 
 import markdown
-from django.utils.text import slugify
 from django.shortcuts import get_object_or_404, render
+from django.utils.text import slugify
+from django.views.generic import DetailView, ListView
 from markdown.extensions.toc import TocExtension
-from django.views.generic import ListView, DetailView
 
-from .models import Post, Category, Tag
+from .models import Category, Post, Tag
 
 # def index(request):
 #     post_list = Post.objects.all()
@@ -14,7 +14,7 @@ from .models import Post, Category, Tag
 
 
 # index类视图
-def IndexView(ListView):
+class IndexView(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
@@ -36,11 +36,11 @@ def IndexView(ListView):
 #     return render(request, 'blog/detail.html', context={'post': post})
 
 
-# def archive(request, year, month):
-#     post_list = Post.objects.filter(created_time__year=year,
-#                                     created_time__month=month
-#                                     )
-#     return render(request, 'blog/index.html', context={'post_list': post_list})
+def archive(request, year, month):
+    post_list = Post.objects.filter(created_time__year=year,
+                                    created_time__month=month
+                                    )
+    return render(request, 'blog/index.html', context={'post_list': post_list})
 
 
 # 类视图复写detail从数据库中拿到详情页
@@ -90,7 +90,7 @@ class PostDetailView(DetailView):
 
 
 # 类视图方法复写category类
-def CategoryView(ListView):
+class CategoryView(ListView):
     model = Post
     template_name = 'blog/index.html'
     context_object_name = 'post_list'
@@ -98,7 +98,7 @@ def CategoryView(ListView):
     def get_queryset(self):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
-    
+
 
 def tag(request, pk):
     t = get_object_or_404(Tag, pk=pk)
